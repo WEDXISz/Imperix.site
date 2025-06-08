@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Fontes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Anton&family=Fira+Code&family=Orbitron&family=Raleway&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+    }
+    input {
+      padding: 12px;
+      width: 80%;
+      max-width: 500px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 30px;
+    }
+    .font-box {
+      background: #1e1e1e;
+      padding: 15px;
+      margin: 12px auto;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #000;
+      cursor: pointer;
+      transition: 0.3s;
+      user-select: all;
+    }
+    .font-box:hover {
+      background: #2b2b2b;
+    }
+    .small-caps {
+      font-variant: small-caps;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Gerador de Fontes imperix</h1>
+  <input type="text" id="entrada" placeholder="Digite seu texto..." oninput="gerarFontes()">
+  <div id="resultados"></div>
+
+  <script>
+    const fontes = [
+      { nome: 'Arial Padrão', estilo: 'Arial, sans-serif' },
+      { nome: 'Code', estilo: '"Fira Code", monospace' },
+      { nome: 'Futurista', estilo: '"Orbitron", sans-serif' },
+      { nome: 'Pacifico', estilo: '"Pacifico", cursive' },
+      { nome: 'Raleway', estilo: '"Raleway", sans-serif' },
+      { nome: 'Impact', estilo: 'Impact, sans-serif' },
+      { nome: 'Comic', estilo: '"Comic Sans MS", cursive' },
+      { nome: 'Anton', estilo: '"Anton", sans-serif' }
+    ];
+
+    function paraCursivaUnicode(texto) {
+      return texto.split('').map(l => {
+        const code = l.charCodeAt(0);
+        if (code >= 97 && code <= 122) return String.fromCharCode(0x1D4B6 + (code - 97)); // a-z
+        if (code >= 65 && code <= 90) return String.fromCharCode(0x1D4D0 + (code - 65)); // A-Z
+        return l;
+      }).join('');
+    }
+
+    function paraNegritoUnicode(texto) {
+      return texto.split('').map(l => {
+        const code = l.charCodeAt(0);
+        if (code >= 97 && code <= 122) return String.fromCharCode(0x1D41A + (code - 97)); // a-z
+        if (code >= 65 && code <= 90) return String.fromCharCode(0x1D400 + (code - 65)); // A-Z
+        return l;
+      }).join('');
+    }
+
+    function paraCirculado(texto) {
+      return texto.split('').map(l => {
+        const code = l.toLowerCase().charCodeAt(0);
+        if (code >= 97 && code <= 122) return String.fromCharCode(0x24D0 + (code - 97)); // a-z circulado
+        if (code >= 48 && code <= 57) return String.fromCharCode(0x2460 + (code - 48)); // 1-9 circulado
+        return l;
+      }).join('');
+    }
+
+    // Função para letras pequenas unicode (superscript-like)
+    function paraMinusculasPequenas(texto) {
+      const map = {
+        a: 'ᵃ', b: 'ᵇ', c: 'ᶜ', d: 'ᵈ', e: 'ᵉ', f: 'ᶠ', g: 'ᵍ', h: 'ʰ', i: 'ⁱ',
+        j: 'ʲ', k: 'ᵏ', l: 'ˡ', m: 'ᵐ', n: 'ⁿ', o: 'ᵒ', p: 'ᵖ', q: 'ᑫ', r: 'ʳ',
+        s: 'ˢ', t: 'ᵗ', u: 'ᵘ', v: 'ᵛ', w: 'ʷ', x: 'ˣ', y: 'ʸ', z: 'ᶻ',
+        A: 'ᴬ', B: 'ᴮ', C: 'ᶜ', D: 'ᴰ', E: 'ᴱ', F: 'ᶠ', G: 'ᴳ', H: 'ᴴ', I: 'ᴵ',
+        J: 'ᴶ', K: 'ᴷ', L: 'ᴸ', M: 'ᴹ', N: 'ᴺ', O: 'ᴼ', P: 'ᴾ', Q: 'ᑫ', R: 'ᴿ',
+        S: 'ˢ', T: 'ᵀ', U: 'ᵁ', V: 'ⱽ', W: 'ᵂ'
+      };
+      return texto.split('').map(c => map[c] || c).join('');
+    }
+
+    // Função nova: itálico matemático + riscado (combining)
+    function paraItalicoRiscado(texto) {
+      const mapItalico = {
+        A: '𝐴', B: '𝐵', C: '𝐶', D: '𝐷', E: '𝐸', F: '𝐹', G: '𝐺', H: '𝐻', I: '𝐼', J: '𝐽',
+        K: '𝐾', L: '𝐿', M: '𝑀', N: '𝑁', O: '𝑂', P: '𝑃', Q: '𝑄', R: '𝑅', S: '𝑆', T: '𝑇',
+        U: '𝑈', V: '𝑉', W: '𝑊', X: '𝑋', Y: '𝑌', Z: '𝑍',
+        a: '𝑎', b: '𝑏', c: '𝑐', d: '𝑑', e: '𝑒', f: '𝑓', g: '𝑔', h: 'ℎ', i: '𝑖', j: '𝑗',
+        k: '𝑘', l: '𝑙', m: '𝑚', n: '𝑛', o: '𝑜', p: '𝑝', q: '𝑞', r: '𝑟', s: '𝑠', t: '𝑡',
+        u: '𝑢', v: '𝑣', w: '𝑤', x: '𝑥', y: '𝑦', z: '𝑧'
+      };
+      const combiningStrikethrough = '\u0334'; // ◌̴
+
+      return texto.split('').map(c => (mapItalico[c] || c) + combiningStrikethrough).join('');
+    }
+
+    function gerarFontes() {
+      const texto = document.getElementById("entrada").value;
+      const container = document.getElementById("resultados");
+      container.innerHTML = "";
+
+      if (!texto) return;
+
+      // Fontes visuais (Google Fonts, locais)
+      fontes.forEach(fonte => {
+        const div = document.createElement("div");
+        div.className = "font-box";
+        div.style.fontFamily = fonte.estilo;
+        div.innerText = texto;
+        div.title = `Clique para copiar (${fonte.nome})`;
+        div.onclick = () => copiarTexto(div.innerText);
+        container.appendChild(div);
+      });
+
+      // Fontes Unicode
+      const estilosUnicode = [
+        { nome: "𝓒𝓾𝓻𝓼𝓲𝓿𝓪 Unicode", funcao: paraCursivaUnicode },
+        { nome: "𝗡𝗲𝗴𝗿𝗶𝘁𝗼 Unicode", funcao: paraNegritoUnicode },
+        { nome: "ⒸⒾⓡⓒⓤⓛⓐⓓⓞ", funcao: paraCirculado },
+        { nome: "𝑾̴𝑬̴𝑫̴𝑿̴𝑰̴𝑺̴ (Itálico Riscado)", funcao: paraItalicoRiscado }
+      ];
+
+      estilosUnicode.forEach(estilo => {
+        const div = document.createElement("div");
+        div.className = "font-box";
+        div.innerText = estilo.funcao(texto);
+        div.title = `Clique para copiar (${estilo.nome})`;
+        div.onclick = () => copiarTexto(div.innerText);
+        container.appendChild(div);
+      });
+
+      // Small Caps CSS
+      const divSmallCaps = document.createElement("div");
+      divSmallCaps.className = "font-box small-caps";
+      divSmallCaps.innerText = texto;
+      divSmallCaps.title = "Clique para copiar (Small Caps CSS)";
+      divSmallCaps.onclick = () => copiarTexto(divSmallCaps.innerText);
+      container.appendChild(divSmallCaps);
+
+      // Unicode Letras Pequenas
+      const divMinusculasPequenas = document.createElement("div");
+      divMinusculasPequenas.className = "font-box";
+      divMinusculasPequenas.innerText = paraMinusculasPequenas(texto);
+      divMinusculasPequenas.title = "Clique para copiar (Letras Pequenas Unicode)";
+      divMinusculasPequenas.onclick = () => copiarTexto(divMinusculasPequenas.innerText);
+      container.appendChild(divMinusculasPequenas);
+    }
+
+    function copiarTexto(texto) {
+      navigator.clipboard.writeText(texto);
+      alert(`Copiado: ${texto}`);
+    }
+  </script>
+
+</body>
+</html>

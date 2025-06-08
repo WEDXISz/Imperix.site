@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerador de Notícia</title>
+  <style>
+    :root {
+      --roxo: #7f00ff;
+      --roxo-claro: #e0ccff;
+      --cinza: #f4f4f4;
+      --texto: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--cinza);
+      color: var(--texto);
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--roxo);
+      margin-bottom: 20px;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: var(--roxo);
+      color: white;
+      font-weight: bold;
+      transition: 0.3s;
+      border: none;
+    }
+
+    button:hover {
+      background-color: #5a00b3;
+    }
+
+    label {
+      margin-top: 15px;
+      display: block;
+      font-weight: bold;
+    }
+
+    .preview {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .header {
+      background: linear-gradient(to right, #e100ff, #7f00ff);
+      color: white;
+      padding: 16px;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    .news-main {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .image-box {
+      width: 200px;
+      height: 200px;
+      background-color: #eee;
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .text-content {
+      flex: 1;
+    }
+
+    .news-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .news-body {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+      border-top: 1px solid #ddd;
+      padding-top: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .news-main {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .image-box {
+        width: 100%;
+        height: 250px;
+      }
+
+      .text-content {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Notícia imperix</h2>
+
+  <input type="text" id="titulo" placeholder="Título da notícia" />
+  <textarea id="conteudo" rows="5" placeholder="Conteúdo da notícia"></textarea>
+
+  <label for="imagem">Imagem da notícia:</label>
+  <input type="file" id="imagem" accept="image/*" />
+
+  <input type="text" id="reporter" placeholder="Nome do repórter" />
+
+  <button onclick="atualizarPreview()">Gerar Notícia</button>
+
+  <div class="preview" id="preview">
+    <div class="header">📰 IMPERIX NEWS</div>
+
+    <div class="news-main">
+      <div class="image-box" id="preview-imagem"></div>
+      <div class="text-content">
+        <div class="news-title" id="preview-titulo">Título da Notícia</div>
+        <div class="news-body" id="preview-conteudo">Conteúdo da notícia aparecerá aqui.</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      📅 Informe Publicitário - Data: <span id="preview-data"></span><br />
+      👤 Repórter: <span id="preview-reporter">Nome do Repórter</span><br />
+      ❤️ Desenvolvido pela imperix
+    </div>
+  </div>
+
+  <script>
+    function atualizarPreview() {
+      const titulo = document.getElementById("titulo").value.trim();
+      const conteudo = document.getElementById("conteudo").value.trim();
+      const reporter = document.getElementById("reporter").value.trim();
+      const dataHoje = new Date().toLocaleDateString("pt-BR");
+
+      document.getElementById("preview-titulo").innerText = titulo || "Título da Notícia";
+      document.getElementById("preview-conteudo").innerText = conteudo || "Conteúdo da notícia aparecerá aqui.";
+      document.getElementById("preview-reporter").innerText = reporter || "Nome do Repórter";
+      document.getElementById("preview-data").innerText = dataHoje;
+
+      const imagem = document.getElementById("imagem").files[0];
+      const previewImagem = document.getElementById("preview-imagem");
+
+      if (imagem) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewImagem.style.backgroundImage = `url('${e.target.result}')`;
+        };
+        reader.readAsDataURL(imagem);
+      } else {
+        previewImagem.style.backgroundImage = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>

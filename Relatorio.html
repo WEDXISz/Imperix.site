@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gerador de Relatórios</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+<style>
+  :root {
+    --primary-color: #6c63ff;
+    --secondary-color: #03dac6;
+    --accent-color: #ff4081;
+    --bg-color: #f9f9f9;
+    --white: #ffffff;
+    --text-color: #333333;
+    --border-radius: 16px;
+    --shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+
+  body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.5;
+    padding: 2rem;
+  }
+
+  h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 2.2rem;
+  }
+
+  .header-image {
+    display: block;
+    margin: 0 auto 2rem;
+    width: 100px;
+    border-radius: 12px;
+  }
+
+  .container {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    max-width: 600px;
+    margin: auto;
+    padding: 2rem;
+  }
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    background: #f1f1f1;
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+  }
+
+  .input-group i {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  input[type="text"] {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    background: transparent;
+    outline: none;
+  }
+
+  .generate-btn,
+  .download-btn {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1rem;
+  }
+
+  .generate-btn {
+    background: var(--primary-color);
+    color: var(--white);
+    margin-top: 1rem;
+  }
+
+  .generate-btn:hover {
+    background: var(--secondary-color);
+  }
+
+  .download-btn {
+    background: var(--accent-color);
+    color: var(--white);
+    margin-top: 2rem;
+  }
+
+  .download-btn:hover {
+    background: var(--secondary-color);
+  }
+
+  .report {
+    display: none;
+    margin-top: 3rem;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+  }
+
+  .report-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: bold;
+  }
+
+  #report-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+
+  .report-section {
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .report-section strong {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .generate-btn i,
+  .download-btn i {
+    margin-right: 0.5rem;
+  }
+
+  .report-footer {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 1.5rem;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<h1>Gerador de Relatórios</h1>
+
+<!-- 🔥 Arthur Leywin com coroa -->
+<img src="https://ibb.co/d0jnRvBZ" alt="Arthur Leywin Rei - TBATE" class="header-image" />
+
+<div class="container">
+  <div class="input-group">
+    <i class="fa-solid fa-user"></i>
+    <input type="text" id="nome" placeholder="Digite o seu nome" oninput="updateReport()" />
+  </div>
+
+  <div class="input-group">
+    <i class="fa-solid fa-heading"></i>
+    <input type="text" id="titulo" placeholder="Digite o título" oninput="updateReport()" />
+  </div>
+
+  <div class="input-group">
+    <i class="fa-solid fa-users"></i>
+    <input type="text" id="recrutamento-input" placeholder="quantos recrutado" oninput="updateReport()" />
+  </div>
+
+  <div class="input-group">
+    <i class="fa-solid fa-chart-line"></i>
+    <input type="text" id="movimento-input" placeholder="quantidade do movimento" oninput="updateReport()" />
+  </div>
+
+  <div class="input-group">
+    <i class="fa-solid fa-arrow-up"></i>
+    <input type="text" id="cargo-input" placeholder="quem subiu de cargo" oninput="updateReport()" />
+  </div>
+
+  <div class="input-group">
+    <i class="fa-solid fa-pen"></i>
+    <input type="text" id="descricao-input" placeholder="Descrição do relatório" oninput="updateReport()" />
+  </div>
+
+  <button class="generate-btn" onclick="downloadReport()">
+    <i class="fa-solid fa-download"></i> Baixar Relatório
+  </button>
+</div>
+
+<div class="report" id="report">
+  <div class="report-header">
+    <span id="report-name">Nome:</span>
+    <span id="report-date">Data:</span>
+  </div>
+
+  <h2 id="report-title">Título</h2>
+
+  <div class="report-section">
+    <strong>👥 Recrutamento</strong>
+    <div id="report-recrutamento"></div>
+  </div>
+
+  <div class="report-section">
+    <strong>📈 Movimento</strong>
+    <div id="report-movimento"></div>
+  </div>
+
+  <div class="report-section">
+    <strong>🏅 Subiu de Cargo</strong>
+    <div id="report-cargo"></div>
+  </div>
+
+  <div class="report-section">
+    <strong>📝 Descrição</strong>
+    <div id="report-descricao"></div>
+  </div>
+
+  <div class="report-footer">Gerado pela Imperix</div>
+
+  <button class="download-btn" onclick="downloadReport()">
+    <i class="fa-solid fa-download"></i> Baixar Imagem
+  </button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+  function updateReport() {
+    const nome = document.getElementById('nome').value.trim() || 'Nome';
+    const titulo = document.getElementById('titulo').value.trim() || 'Título do Relatório';
+    const data = new Date().toLocaleDateString();
+    const recrutamento = document.getElementById('recrutamento-input').value.trim() || 'Sem detalhes';
+    const movimento = document.getElementById('movimento-input').value.trim() || 'Sem detalhes';
+    const cargo = document.getElementById('cargo-input').value.trim() || 'Sem detalhes';
+    const descricao = document.getElementById('descricao-input').value.trim() || 'Sem descrição';
+
+    document.getElementById('report-name').innerText = `Nome: ${nome}`;
+    document.getElementById('report-title').innerText = titulo;
+    document.getElementById('report-date').innerText = `Data: ${data}`;
+    document.getElementById('report-recrutamento').innerText = recrutamento;
+    document.getElementById('report-movimento').innerText = movimento;
+    document.getElementById('report-cargo').innerText = cargo;
+    document.getElementById('report-descricao').innerText = descricao;
+
+    document.getElementById('report').style.display = 'block';
+  }
+
+  function downloadReport() {
+    const report = document.getElementById('report');
+    html2canvas(report).then(canvas => {
+      const link = document.createElement('a');
+      link.download = 'relatorio.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  }
+</script>
+
+</body>
+</html>

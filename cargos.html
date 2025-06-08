@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cargos</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  body {
+    background: #f1f1f1;
+  }
+  header {
+    background: #8a2be2;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+  }
+  header h1 {
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  header img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  .search-bar {
+    padding: 10px;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    background: #fff;
+  }
+  #mensagem {
+    padding: 10px;
+    color: red;
+    font-weight: bold;
+  }
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    margin: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .card-header {
+    background: #8a2be2;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-header i {
+    font-size: 1.2em;
+  }
+  .card-header h2 {
+    font-size: 1em;
+  }
+  .card-body {
+    padding: 10px;
+  }
+  .cargo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0;
+  }
+  .cargo:last-child {
+    border-bottom: none;
+  }
+  .cargo-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cargo-info span {
+    display: inline-block;
+    width: 4px;
+    height: 20px;
+    background: #8a2be2;
+    border-radius: 2px;
+  }
+  .cargo-info p {
+    margin: 0;
+  }
+  .cargo button {
+    background: none;
+    border: 2px solid #8a2be2;
+    color: #8a2be2;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="./img/imperix.jpg" alt="Logo">
+  </div>
+  <h1>📁 Cargos</h1>
+  <div>🌙</div>
+</header>
+
+<div class="search-bar">
+  <input type="text" id="buscaInput" placeholder="Buscar cargos..." oninput="buscarCargo()" />
+</div>
+
+<p id="mensagem"></p>
+
+<div class="card">
+  <div class="card-header">
+    <i>️👑</i>
+    <div>
+      <h2>SUPERIORES</h2>
+      <small>Total de Cargos: 5</small>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Imperador sombrio</p></div>
+ <button onclick="copiarCargo('️ⁱᵐᵖ sʙʀ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Diretor sombrio</p></div>
+ <button onclick="copiarCargo('ᵛⁱᶜᵉ sʙʀ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Vice Diretor</p></div>
+ <button onclick="copiarCargo('ᵖʳᵉˢˢⁿ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Diretor Interino</p></div>
+ <button onclick="copiarCargo('️ᵖʳᵉˢˢ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Primeiro Ministro</p></div>
+ <button onclick="copiarCargo('️ᵖʳᵉᵐⁱ')">🏷</button>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <i>🏛</i>
+    <div>
+      <h2>Casa Branca</h2>
+      <small>Total de Cargos: 26</small>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Assistente</p></div>
+      <button onclick="copiarCargo('ᵃˢˢᶦˢᵗ')"🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Presidente da Justiça</p></div>
+      <button onclick="copiarCargo('ᵖʳᵉˢʲᵘˢ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Procurador-Geral</p></div>
+      <button onclick="copiarCargo('ᵖʳᵒᶜᵍʳ')">🏷</button>
+    </div>
+     <div class="cargo">
+      <div class="cargo-info"><span></span><p>chanceler</p></div>
+      <button onclick="copiarCargo('ᶜʰᵃⁿᶜ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Assistente</p></div>
+      <button>🏷️</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>juiz inspetor</p></div>
+              <button onclick="copiarCargo('ʲⁱⁿˢᵖ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>ceo-regente</p></div>
+      <button onclick="copiarCargo('ᶜᵉᵒʳʳʳᵍ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Procuradora-Geral</p></div>
+            <button onclick="copiarCargo(' ᵖʳᵒᶜᵍʳ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>chanceler-ass</p></div>
+            <button onclick="copiarCargo('ᶜʰᵃˢˢ')">🏷</button>
+    </div>
+     <div class="cargo">
+      <div class="cargo-info"><span></span><p>mnistro da defesa</p></div>
+            <button onclick="copiarCargo('ᵐᵈᵈ')">🏷</button>
+    </div>
+
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Ministro da inteligencia</p></div>
+            <button onclick="copiarCargo('ᵐⁿⁱⁿᵗ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Ministro das relações</p></div>
+            <button onclick="copiarCargo('ᵐᵈʳ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>ministra da enconomia</p></div>
+            <button onclick="copiarCargo('ᵐᵈᵉ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>tesoureiro geral</p></div>
+            <button onclick="copiarCargo('ᵗˢᶠ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Presidente do brinks</p></div>
+            <button onclick="copiarCargo('ᵖʳᵉˢᵇʳⁱⁿᵏˢ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>ministro do interior</p></div>
+            <button onclick="copiarCargo('ᵐᵈⁱ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>perfilador-geral</p></div>
+            <button onclick="copiarCargo('ᵖᶠᵍ')">🏷</button>
+    </div>
+     <div class="cargo">
+      <div class="cargo-info"><span></span><p>tabelião</p></div>
+            <button onclick="copiarCargo('ᵗᵇˡ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>reporte</p></div>
+            <button onclick="copiarCargo('ʳᵖʳᵗ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>padre</p></div>
+            <button onclick="copiarCargo('ᵖᵃᵈʳᵉ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>arquiteto</p></div>
+            <button onclick="copiarCargo('ᵃʳᵠᵗ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>arquiteto tk</p></div>
+            <button onclick="copiarCargo('ᵃʳᵠᵗᵗᵏ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>Procurador-Geral</p></div>
+      <button>🏷️</button>
+    </div>    <div class="cargo">
+      <div class="cargo-info"><span></span><p>delegado</p></div>
+            <button onclick="copiarCargo('ᵈˡᵍᵈ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>carrasco</p></div>
+            <button onclick="copiarCargo('ᶜʳᶜᶜ')">🏷</button>
+    </div>
+  </div>
+<p id="mensagem"></p>
+
+<div class="card">
+  <div class="card-header">
+    <i>⏳</i>
+    <div>
+      <h2>
+SUPERINTENDÊNCIA</h2>
+      <small>Total de Cargos: 20</small>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>ceo chefe geral</p></div>
+                  <button onclick="copiarCargo('ᶜᵉᵒᶜʰᵍ')">🏷</button>
+    </div>
+     <div class="cargo">
+      <div class="cargo-info"><span></span><p>ceo residente</p></div>
+                  <button onclick="copiarCargo('ᶜᵉᵒʳᵈ')">🏷</button>
+    </div>
+     <div class="cargo">
+      <div class="cargo-info"><span></span><p>ceo interino</p></div>
+                  <button onclick="copiarCargo('ᶜᵉᵒⁱⁿᵗ')">🏷</button>
+    </div>
+     <div class="cargo">
+      <div class="cargo-info"><span></span><p>dirigente</p></div>
+            <button onclick="copiarCargo('ᵈʳᶠ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>conselheiro</p></div>
+            <button onclick="copiarCargo('ᶜᵒⁿˢᵉˡʰ')">🏷</button>
+    </div>
+     <div class="cargo">
+      <div class="cargo-info"><span></span><p>diretor da abin</p></div>
+                <button onclick="copiarCargo('ᵈⁱʳᵃᵇⁱⁿ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>guardião</p></div>
+ <button onclick="copiarCargo('ᵍᵘᵃʳᵈᶦãᵒ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>professor geral</p></div>
+ <button onclick="copiarCargo('ᵖʳᶠᵍᵉʳᵃˡ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>professor tk</p></div>
+ <button onclick="copiarCargo('ᵖʳᶠᵗᵏ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>embaixador geral</p></div>
+ <button onclick="copiarCargo('ᵉᵐᵇᵍᵉʳᵃˡ')">🏷</button>
+    </div>
+     <div class="cargo">
+      <div class="cargo-info"><span></span><p>embaixador tk</p></div>
+ <button onclick="copiarCargo('ᵉᵐᵇᵗᵏ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>secretario geral</p></div>
+ <button onclick="copiarCargo('ˢᶜᵗᵍᵉʳᵃˡ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>secretario tk</p></div>
+ <button onclick="copiarCargo('ˢᵉᵗᵏ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>supervisortk</p></div>
+ <button onclick="copiarCargo('ˢᵖʳᵗᵏ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>tesoureiro</p></div>
+ <button onclick="copiarCargo('ᵗˢʳ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>ministro do link</p></div>
+ <button onclick="copiarCargo('ᵐⁱⁿˡⁱⁿᵏ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>contador</p></div>
+ <button onclick="copiarCargo('ᶜᵒⁿᵗᵃᵈᵒʳ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>desenvolvedor</p></div>
+ <button onclick="copiarCargo('ᵈᵛˡᵈʳ')">🏷</button>
+    </div>
+     <div class="cargo">
+      <div class="cargo-info"><span></span><p>engenheiro</p></div>
+                <button onclick="copiarCargo('ᵉⁿᵍ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>reservista regente</p></div>
+            <button onclick="copiarCargo('ʳʳᵍ')">🏷</button>
+    </div>
+<p id="mensagem"></p>
+
+<div class="card">
+  <div class="card-header">
+    <i>📈</i>
+    <div>
+      <h2>Capital Regional</h2>
+      <small>Total de Cargos: 32</small>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>juiz regente</p></div>
+            <button onclick="copiarCargo('ʲᵘᶦᶻ ʳᵉᵍ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>deputado</p></div>
+            <button onclick="copiarCargo('ᵈᵉᵖᵘᵗᵃᵈᵒ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>vereador</p></div>
+            <button onclick="copiarCargo('ᵛᵉʳᵉᵃᵈᵒʳ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>advogado</p></div>
+            <button onclick="copiarCargo('ᵃᵈᵛ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>prefeitor</p></div>
+            <button onclick="copiarCargo('ᵖʳᵉᶠᵉⁱᵗᵒ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>monge</p></div>
+            <button onclick="copiarCargo('ᵐᵒᵍ')">🏷</button>
+    </div>
+     <div class="cargo">
+      <div class="cargo-info"><span></span><p>repositor</p></div>
+            <button onclick="copiarCargo('ʳᵉᵖ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>sherieff</p></div>
+            <button onclick="copiarCargo('ˢʰʳʳ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>ministro do estado</p></div>
+            <button onclick="copiarCargo('ᵐᵈᵗᵗ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>ancião</p></div>
+            <button onclick="copiarCargo('ᵃⁿᶜᶦ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>gerente de operações</p></div>
+      <button>🏷️</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>mosqueteiro</p></div>
+            <button onclick="copiarCargo('ᵐᵒˢᑫ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>perfilador</p></div>
+            <button onclick="copiarCargo('ᵖᵉʳᶠ')">🏷</button>
+    </div>
+     <div class="cargo">
+      <div class="cargo-info"><span></span><p>upador</p></div>
+                  <button onclick="copiarCargo('ᵘᵖˢ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>upador assitente</p></div>
+            <button onclick="copiarCargo('ᵘᵖˢᵗᵏ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>animador</p></div>
+                  <button onclick="copiarCargo('ᵃⁿᶦᵐᵘˢ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>organizador</p></div>
+      <button>🏷️</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>codernador</p></div>
+      <button>🏷️</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>emissario</p></div>
+      <button>🏷️</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>distribuidor</p></div>
+      <button>🏷️</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>gerente analista</p></div>
+      <button>🏷️</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>indicador</p></div>
+            <button onclick="copiarCargo('ⁱⁿᵈᶜ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>instrutor</p></div>
+            <button onclick="copiarCargo('ᵛⁱᶜᵉ sʙʀ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>policias</p></div>
+            <button onclick="copiarCargo('ⁱⁿᵗʳ')">🏷</button>
+    </div>
+     <div class="cargo">
+      <div class="cargo-info"><span></span><p>recpcionista</p></div>
+            <button onclick="copiarCargo('ʳᶜᵖ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>vigia</p></div>
+            <button onclick="copiarCargo('ᵛⁱᵍⁱᵃ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>segurança</p></div>
+            <button onclick="copiarCargo('ˢᵉᵍ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>adm federal</p></div>
+      <button>🏷️</button>
+    </div>
+   
+      <div class="cargo">
+      <div class="cargo-info"><span></span><p>adm oficial</p></div>
+            <button onclick="copiarCargo('ⁿᵉᵉᵗ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>oligarcas</p></div>
+            <button onclick="copiarCargo('ᵒˡⁱ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>oligarcas tk</p></div>
+            <button onclick="copiarCargo('ᵒˡⁱᵗᵏ')">🏷</button>
+    </div>
+    <div class="cargo">
+      <div class="cargo-info"><span></span><p>adm em teste</p></div>
+            <button onclick="copiarCargo('ᵃᵈᵐᵗ')">🏷</button>
+    </div>
+  </div>
+
+<!-- Outras cards podem seguir o mesmo padrão -->
+
+<script>
+function buscarCargo() {
+  const input = document.getElementById("buscaInput").value.toLowerCase();
+  const cargos = document.querySelectorAll(".cargo");
+  let encontrou = false;
+
+  cargos.forEach(cargo => {
+    const textoCargo = cargo.querySelector("p").textContent.toLowerCase();
+    if (textoCargo.includes(input)) {
+      cargo.style.display = "flex";
+      encontrou = true;
+    } else {
+      cargo.style.display = "none";
+    }
+  });
+
+  const mensagem = document.getElementById("mensagem");
+  if (!encontrou && input.length > 0) {
+    mensagem.textContent = "Nenhum cargo encontrado.";
+  } else {
+    mensagem.textContent = "";
+  }
+}
+
+function copiarCargo(texto) {
+  navigator.clipboard.writeText(texto)
+    .then(() => {
+      alert(`"${texto}" copiado para a área de transferência!`);
+    })
+    .catch(err => {
+      console.error('Erro ao copiar: ', err);
+      alert('Falha ao copiar o texto.');
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Medalhas de Honra</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0e0e0e;
+      color: #fff;
+    }
+
+    header {
+      background-color: #111;
+      text-align: center;
+      padding: 30px 20px;
+      border-bottom: 2px solid gold;
+    }
+
+    header h1 {
+      color: gold;
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: #ccc;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .medalha-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+
+    .medalha-card {
+      background-color: #1e1e1e;
+      border-radius: 15px;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+      transition: transform 0.3s;
+    }
+
+    .medalha-card:hover {
+      transform: scale(1.05);
+    }
+
+    .medalha-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+
+    .medalha-card h3 {
+      margin-bottom: 8px;
+      color: gold;
+    }
+
+    .medalha-card p {
+      font-size: 0.9em;
+      color: #ccc;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      color: #888;
+      border-top: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Medalhas de Honra</h1>
+    <p>so os melhores</p>
+  </header>
+
+  <div class="container">
+    <div class="medalha-grid">
+
+      <!-- Medalha 1 -->
+      <div class="medalha-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2583/2583342.png" alt="Medalha Ouro">
+        <h3>nome</h3>
+        <p>sem nada</p>
+      </div>
+
+      <!-- Medalha 2 -->
+      <div class="medalha-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Medalha Prata">
+        <h3>nome</h3>
+        <p>sem nada</p>
+      </div>
+
+      <!-- Medalha 3 -->
+      <div class="medalha-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2893/2893999.png" alt="Medalha Bronze">
+        <h3>nome</h3>
+        <p>sem nada</p>
+      </div>
+
+      <!-- Adicione mais homenagens -->
+    </div>
+  </div>
+
+  <footer>
+    © 2025 - Medalhas de honra | Feito pela imperix
+  </footer>
+
+</body>
+</html>
