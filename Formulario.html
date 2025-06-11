@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulário C.I.A. | IMPΞRIX𖤐LTDA</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px #00ffc3;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: #00ffc3;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #ffd700;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border: none;
+      border-radius: 8px;
+      background-color: #2a2a2a;
+      color: #fff;
+      font-size: 1rem;
+      resize: vertical;
+    }
+
+    textarea {
+      min-height: 80px;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 20px;
+      background-color: #00ffc3;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #00cfa0;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-style: italic;
+      color: #888;
+    }
+
+    .info {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: 4px;
+    }
+
+    hr {
+      margin: 40px 0;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⟪🐉☾˳∘ＩＭＰΞＲＩＸ𖤐LTDA⟫</h1>
+    <form id="formulario">
+      <label>🎯 Idade:</label>
+      <input type="number" name="idade" id="idade" required />
+
+      <label>🧠 Nível de Sigilo (de 1 a 10):</label>
+      <input type="number" name="sigilo" id="sigilo" min="1" max="10" required />
+      <div class="info">> O quanto você sabe guardar segredos e lidar com informações privadas?</div>
+
+      <label>💻 Experiência com administração de grupos:</label>
+      <textarea id="experiencia"></textarea>
+
+      <label>📚 Missão:</label>
+      <textarea id="missao"></textarea>
+
+      <label>📡 Situação de emergência:</label>
+      <textarea id="emergencia"></textarea>
+
+      <label>🧰 Ferramentas especiais (habilidades):</label>
+      <textarea id="ferramentas"></textarea>
+
+      <label>📓 Por que quer se tornar um Agente-ADM da C.I.A?</label>
+      <textarea id="motivo"></textarea>
+
+      <hr />
+
+      <label>🕵️ Grupo C.I.A. - Tema e Regras</label>
+      <div class="info">
+        > Bem-vindo à Agência Secreta C.I.A. Aqui recrutamos os mais atentos, ativos e justos. Sua missão: manter a ordem, proteger a informação e moderar com inteligência.
+      </div>
+
+      <button type="submit">Enviar Respostas pelo WhatsApp</button>
+    </form>
+
+    <div class="footer">© 2025 IMPΞRIX LTDA • C.I.A. - Central de Inteligência Alternativa</div>
+  </div>
+
+  <script>
+    document.getElementById("formulario").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const idade = document.getElementById("idade").value;
+      const sigilo = document.getElementById("sigilo").value;
+      const experiencia = document.getElementById("experiencia").value;
+      const missao = document.getElementById("missao").value;
+      const emergencia = document.getElementById("emergencia").value;
+      const ferramentas = document.getElementById("ferramentas").value;
+      const motivo = document.getElementById("motivo").value;
+
+      const mensagem = 
+`🕵️ Formulário de Recrutamento - C.I.A
+
+🎯 Idade: ${idade}
+🧠 Nível de Sigilo: ${sigilo}
+💻 Experiência ADM: ${experiencia}
+📚 Missão (traidor): ${missao}
+📡 Emergência: ${emergencia}
+🧰 Habilidades: ${ferramentas}
+📓 Motivo: ${motivo}`;
+
+      const textoCodificado = encodeURIComponent(mensagem);
+      const telefone = "5511967187224";
+      const url = `https://wa.me/${telefone}?text=${textoCodificado}`;
+
+      window.open(url, "_blank");
+    });
+  </script>
+</body>
+</html>
