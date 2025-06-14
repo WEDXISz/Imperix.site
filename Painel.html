@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nexion Recruitment</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -24,14 +21,9 @@
       justify-content: space-between;
     }
 
-    .header h1 {
-      margin: 0;
-      font-size: 20px;
-    }
+    .header h1 { margin: 0; font-size: 20px; }
 
-    .panel {
-      padding: 20px;
-    }
+    .panel { padding: 20px; }
 
     .stats {
       display: flex;
@@ -48,9 +40,7 @@
       transition: transform 0.2s;
     }
 
-    .card:hover {
-      transform: scale(1.05);
-    }
+    .card:hover { transform: scale(1.05); }
 
     .rank {
       background: #1f1f3c;
@@ -74,9 +64,7 @@
       transition: width 0.4s;
     }
 
-    .list {
-      margin-top: 20px;
-    }
+    .list { margin-top: 20px; }
 
     .contact {
       background: #141426;
@@ -137,7 +125,6 @@
       <div class="card"><h2 id="recrutados">0</h2><p>Recrutados</p></div>
       <div class="card"><h2 id="recusados">0</h2><p>Recusados</p></div>
       <div class="card"><h2 id="pendentes">10</h2><p>Pendentes</p></div>
-      <div class="card"><h2 id="banidos">0</h2><p>Banidos</p></div>
     </div>
 
     <div class="rank">
@@ -157,21 +144,19 @@
   <script>
     let recrutados = 0;
     let recusados = 0;
-    let banidos = JSON.parse(localStorage.getItem("banidos")) || [];
-
-    function salvarBanidos() {
-      localStorage.setItem("banidos", JSON.stringify(banidos));
-    }
+    let banidos = [];
+    let recusadosLista = [];
 
     function gerarNumeroAleatorio() {
       let numero;
       let tentativas = 0;
       do {
-        const ddd = "351";
-        numero = ddd + Math.floor(900000000 + Math.random() * 99999999);
+        const ddd = "3519";
+        const parteFinal = Math.floor(10000000 + Math.random() * 9000000);
+        numero = ddd + parteFinal;
         tentativas++;
-        if (tentativas > 100) break; // evita loop infinito
-      } while (banidos.includes(numero));
+        if (tentativas > 200) return null; // evita travamento
+      } while (banidos.includes(numero) || recusadosLista.includes(numero));
       return numero;
     }
 
@@ -183,9 +168,9 @@
         <div class="buttons">
           <a class="btn green" href="https://wa.me/${num}" target="_blank">Chamar</a>
           <button class="btn blue" onclick="recrutar(this)">Recrutar</button>
-          <button class="btn red" onclick="recusar(this)">Recusar</button>
+          <button class="btn red" onclick="recusar(this, '${num}')">Recusar</button>
           <button class="btn gray" onclick="copiar('${num}')">Copiar</button>
-          <button class="btn yellow" onclick="banir('${num}', this)">Banir</button>
+          <button class="btn yellow" onclick="banirNumero('${num}', this)">Banir</button>
         </div>
       `;
       return div;
@@ -195,14 +180,17 @@
       const lista = document.getElementById('lista-contatos');
       lista.innerHTML = '';
       let gerados = 0;
+      let tentativas = 0;
+      document.getElementById("pendentes").innerText = qtde;
 
-      while (gerados < qtde) {
+      while (gerados < qtde && tentativas < qtde * 20) {
         const num = gerarNumeroAleatorio();
-        if (!banidos.includes(num)) {
+        if (num) {
           const card = criarCardContato(num);
           lista.appendChild(card);
           gerados++;
         }
+        tentativas++;
       }
 
       atualizarContadores();
@@ -214,20 +202,11 @@
       atualizarContadores();
     }
 
-    function recusar(btn) {
+    function recusar(btn, numero) {
       recusados++;
+      recusadosLista.push(numero);
       btn.closest(".contact").remove();
       atualizarContadores();
-    }
-
-    function banir(num, btn) {
-      if (!banidos.includes(num)) {
-        banidos.push(num);
-        salvarBanidos();
-      }
-      btn.closest(".contact").remove();
-      atualizarContadores();
-      alert("Número banido: " + num);
     }
 
     function copiar(num) {
@@ -235,12 +214,20 @@
       alert("Número copiado: " + num);
     }
 
+    function banirNumero(numero, btn) {
+      if (!banidos.includes(numero)) {
+        banidos.push(numero);
+        btn.closest(".contact").remove();
+        atualizarContadores();
+        alert("Número banido: " + numero);
+      }
+    }
+
     function atualizarContadores() {
       const restantes = document.querySelectorAll(".contact").length;
       document.getElementById("recrutados").innerText = recrutados;
       document.getElementById("recusados").innerText = recusados;
       document.getElementById("pendentes").innerText = restantes;
-      document.getElementById("banidos").innerText = banidos.length;
 
       const restanteParaProxRank = Math.max(8 - recrutados, 0);
       document.getElementById("rankProgress").innerText = restanteParaProxRank;
@@ -251,4 +238,4 @@
   </script>
 
 </body>
-  </html>
+        </html>
