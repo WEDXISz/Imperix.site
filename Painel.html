@@ -6,6 +6,7 @@
   <title>Nexion Recruitment</title>
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -19,6 +20,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .header h1 { margin: 0; font-size: 20px; }
@@ -116,7 +119,10 @@
 
   <div class="header">
     <h1>👑 NEXION RECRUITMENT</h1>
-    <button class="btn gray" onclick="gerarContatos()">Atualizar Lista</button>
+    <div>
+      <button class="btn gray" onclick="gerarContatos()">Atualizar Lista</button>
+      <button class="btn red" onclick="verBanidos()">Números Banidos</button>
+    </div>
   </div>
 
   <div class="panel">
@@ -151,11 +157,11 @@
       let numero;
       let tentativas = 0;
       do {
-        const ddd = "3519";
-        const parteFinal = Math.floor(10000000 + Math.random() * 9000000);
-        numero = ddd + parteFinal;
+        const ddd = Math.floor(11 + Math.random() * 88);
+        const numFinal = Math.floor(10000000 + Math.random() * 9000000);
+        numero = `55${ddd}9${numFinal}`;
         tentativas++;
-        if (tentativas > 200) return null; // evita travamento
+        if (tentativas > 200) return null;
       } while (banidos.includes(numero) || recusadosLista.includes(numero));
       return numero;
     }
@@ -167,7 +173,7 @@
         <p>📱 <b>${num}</b> - há 5 dias</p>
         <div class="buttons">
           <a class="btn green" href="https://wa.me/${num}" target="_blank">Chamar</a>
-          <button class="btn blue" onclick="recrutar(this)">Recrutar</button>
+          <button class="btn blue" onclick="recrutar(this, '${num}')">Recrutar</button>
           <button class="btn red" onclick="recusar(this, '${num}')">Recusar</button>
           <button class="btn gray" onclick="copiar('${num}')">Copiar</button>
           <button class="btn yellow" onclick="banirNumero('${num}', this)">Banir</button>
@@ -180,31 +186,28 @@
       const lista = document.getElementById('lista-contatos');
       lista.innerHTML = '';
       let gerados = 0;
-      let tentativas = 0;
-      document.getElementById("pendentes").innerText = qtde;
 
-      while (gerados < qtde && tentativas < qtde * 20) {
+      while (gerados < qtde) {
         const num = gerarNumeroAleatorio();
-        if (num) {
-          const card = criarCardContato(num);
-          lista.appendChild(card);
-          gerados++;
-        }
-        tentativas++;
+        if (num === null) break;
+        const card = criarCardContato(num);
+        lista.appendChild(card);
+        gerados++;
       }
 
+      document.getElementById("pendentes").innerText = gerados;
       atualizarContadores();
     }
 
-    function recrutar(btn) {
+    function recrutar(btn, num) {
       recrutados++;
       btn.closest(".contact").remove();
       atualizarContadores();
     }
 
-    function recusar(btn, numero) {
+    function recusar(btn, num) {
       recusados++;
-      recusadosLista.push(numero);
+      recusadosLista.push(num);
       btn.closest(".contact").remove();
       atualizarContadores();
     }
@@ -214,13 +217,17 @@
       alert("Número copiado: " + num);
     }
 
-    function banirNumero(numero, btn) {
-      if (!banidos.includes(numero)) {
-        banidos.push(numero);
+    function banirNumero(num, btn) {
+      if (!banidos.includes(num)) {
+        banidos.push(num);
         btn.closest(".contact").remove();
         atualizarContadores();
-        alert("Número banido: " + numero);
+        alert("Número banido: " + num);
       }
+    }
+
+    function verBanidos() {
+      alert("Banidos:\n" + banidos.join("\n"));
     }
 
     function atualizarContadores() {
@@ -238,4 +245,4 @@
   </script>
 
 </body>
-        </html>
+  </html>
