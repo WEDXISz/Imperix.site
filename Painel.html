@@ -2,247 +2,79 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nexion Recruitment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerador de Números - Recrutamento</title>
   <style>
-    * { box-sizing: border-box; }
-
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0f0f1a;
+      background-color: #0d0d0d;
       color: #fff;
-    }
-
-    .header {
-      background: linear-gradient(90deg, #a445b2, #d41872);
-      padding: 16px 20px;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
+      padding: 40px 20px;
     }
 
-    .header h1 { margin: 0; font-size: 20px; }
-
-    .panel { padding: 20px; }
-
-    .stats {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
+    h1 {
+      color: #00ff88;
     }
 
-    .card {
-      background: #1a1a2e;
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #00ff88;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #00cc70;
+    }
+
+    .number-box {
+      margin-top: 30px;
+      font-size: 24px;
+      background-color: #1a1a1a;
       padding: 20px;
       border-radius: 10px;
-      flex: 1 1 150px;
+      box-shadow: 0 0 15px #00ff8855;
+      min-width: 250px;
       text-align: center;
-      transition: transform 0.2s;
     }
-
-    .card:hover { transform: scale(1.05); }
-
-    .rank {
-      background: #1f1f3c;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 20px;
-    }
-
-    .progress {
-      height: 8px;
-      background: #333;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 10px;
-    }
-
-    .progress-bar {
-      height: 100%;
-      background: #33c3f0;
-      width: 0%;
-      transition: width 0.4s;
-    }
-
-    .list { margin-top: 20px; }
-
-    .contact {
-      background: #141426;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .buttons {
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .btn {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      color: white;
-      transition: background 0.3s;
-    }
-
-    .green { background: #28a745; }
-    .green:hover { background: #218838; }
-
-    .blue { background: #007bff; }
-    .blue:hover { background: #0069d9; }
-
-    .red { background: #dc3545; }
-    .red:hover { background: #c82333; }
-
-    .gray { background: #6c757d; }
-    .gray:hover { background: #5a6268; }
-
-    .yellow { background: #ffc107; color: #000; }
-    .yellow:hover { background: #e0a800; }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <h1>👑 NEXION RECRUITMENT</h1>
-    <div>
-      <button class="btn gray" onclick="gerarContatos()">Atualizar Lista</button>
-      <button class="btn red" onclick="verBanidos()">Números Banidos</button>
-    </div>
-  </div>
-
-  <div class="panel">
-    <div class="stats">
-      <div class="card"><h2>1038</h2><p>Total Enviados</p></div>
-      <div class="card"><h2 id="recrutados">0</h2><p>Recrutados</p></div>
-      <div class="card"><h2 id="recusados">0</h2><p>Recusados</p></div>
-      <div class="card"><h2 id="pendentes">10</h2><p>Pendentes</p></div>
-    </div>
-
-    <div class="rank">
-      <h3>🌍 Terra - Rank Atual</h3>
-      <p><span id="rankProgress">0</span> recrutamentos para Pedra</p>
-      <div class="progress">
-        <div class="progress-bar" id="progress-bar"></div>
-      </div>
-    </div>
-
-    <div class="list">
-      <h3>📋 Quadro de Missões</h3>
-      <div id="lista-contatos"></div>
-    </div>
-  </div>
+  <h1>📞 Gerador de Números para Recrutamento</h1>
+  <button onclick="gerarNumero()">Gerar Número</button>
+  <div class="number-box" id="numeroGerado">Clique no botão para gerar</div>
 
   <script>
-    let recrutados = 0;
-    let recusados = 0;
-    let banidos = [];
-    let recusadosLista = [];
+    const dddsValidos = [
+      11, 12, 13, 14, 15, 16, 17, 18, 19,
+      21, 22, 24, 27, 28,
+      31, 32, 33, 34, 35, 37, 38,
+      41, 42, 43, 44, 45, 46,
+      47, 48, 49,
+      51, 53, 54, 55,
+      61, 62, 64, 63, 65, 66, 67,
+      68, 69, 71, 73, 74, 75, 77, 79,
+      81, 82, 83, 84, 85, 86, 87, 88, 89,
+      91, 92, 93, 94, 95, 96, 97, 98, 99
+    ];
 
-    function gerarNumeroAleatorio() {
-      let numero;
-      let tentativas = 0;
-      do {
-        const ddd = Math.floor(11 + Math.random() * 88);
-        const numFinal = Math.floor(10000000 + Math.random() * 9000000);
-        numero = `55${ddd}9${numFinal}`;
-        tentativas++;
-        if (tentativas > 200) return null;
-      } while (banidos.includes(numero) || recusadosLista.includes(numero));
-      return numero;
+    function gerarNumero() {
+      const ddd = dddsValidos[Math.floor(Math.random() * dddsValidos.length)];
+      const parte1 = Math.floor(Math.random() * 9000) + 1000; // 1000-9999
+      const parte2 = Math.floor(Math.random() * 9000) + 1000; // 1000-9999
+      const numero = `+55 (${ddd}) 9${parte1}-${parte2}`;
+      document.getElementById('numeroGerado').innerText = numero;
     }
-
-    function criarCardContato(num) {
-      const div = document.createElement('div');
-      div.className = "contact";
-      div.innerHTML = `
-        <p>📱 <b>${num}</b> - há 5 dias</p>
-        <div class="buttons">
-          <a class="btn green" href="https://wa.me/${num}" target="_blank">Chamar</a>
-          <button class="btn blue" onclick="recrutar(this, '${num}')">Recrutar</button>
-          <button class="btn red" onclick="recusar(this, '${num}')">Recusar</button>
-          <button class="btn gray" onclick="copiar('${num}')">Copiar</button>
-          <button class="btn yellow" onclick="banirNumero('${num}', this)">Banir</button>
-        </div>
-      `;
-      return div;
-    }
-
-    function gerarContatos(qtde = 10) {
-      const lista = document.getElementById('lista-contatos');
-      lista.innerHTML = '';
-      let gerados = 0;
-
-      while (gerados < qtde) {
-        const num = gerarNumeroAleatorio();
-        if (num === null) break;
-        const card = criarCardContato(num);
-        lista.appendChild(card);
-        gerados++;
-      }
-
-      document.getElementById("pendentes").innerText = gerados;
-      atualizarContadores();
-    }
-
-    function recrutar(btn, num) {
-      recrutados++;
-      btn.closest(".contact").remove();
-      atualizarContadores();
-    }
-
-    function recusar(btn, num) {
-      recusados++;
-      recusadosLista.push(num);
-      btn.closest(".contact").remove();
-      atualizarContadores();
-    }
-
-    function copiar(num) {
-      navigator.clipboard.writeText(num);
-      alert("Número copiado: " + num);
-    }
-
-    function banirNumero(num, btn) {
-      if (!banidos.includes(num)) {
-        banidos.push(num);
-        btn.closest(".contact").remove();
-        atualizarContadores();
-        alert("Número banido: " + num);
-      }
-    }
-
-    function verBanidos() {
-      alert("Banidos:\n" + banidos.join("\n"));
-    }
-
-    function atualizarContadores() {
-      const restantes = document.querySelectorAll(".contact").length;
-      document.getElementById("recrutados").innerText = recrutados;
-      document.getElementById("recusados").innerText = recusados;
-      document.getElementById("pendentes").innerText = restantes;
-
-      const restanteParaProxRank = Math.max(8 - recrutados, 0);
-      document.getElementById("rankProgress").innerText = restanteParaProxRank;
-      document.getElementById("progress-bar").style.width = `${Math.min((recrutados / 8) * 100, 100)}%`;
-    }
-
-    gerarContatos();
   </script>
 
 </body>
-  </html>
+</html>
