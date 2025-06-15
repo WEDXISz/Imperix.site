@@ -3,77 +3,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gerador de Números - Recrutamento</title>
+  <title>Recrutador de Números BR</title>
   <style>
     body {
-      background-color: #0d0d0d;
+      background-color: #111;
       color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
     }
-
-    h1 {
-      color: #00ff88;
+    .contador {
+      margin-bottom: 30px;
+      font-size: 20px;
     }
-
+    .numero {
+      font-size: 28px;
+      margin: 20px 0;
+    }
     button {
+      margin: 10px;
       padding: 10px 20px;
-      font-size: 18px;
-      background-color: #00ff88;
-      color: #000;
+      font-size: 16px;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
-      margin-top: 20px;
       transition: 0.3s;
     }
-
-    button:hover {
-      background-color: #00cc70;
+    .recrutar {
+      background-color: #25D366;
+      color: #000;
     }
-
-    .number-box {
-      margin-top: 30px;
-      font-size: 24px;
-      background-color: #1a1a1a;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #00ff8855;
-      min-width: 250px;
-      text-align: center;
+    .recusar {
+      background-color: #ff4c4c;
+      color: #fff;
+    }
+    .recrutar:hover {
+      background-color: #1da851;
+    }
+    .recusar:hover {
+      background-color: #e04343;
     }
   </style>
 </head>
 <body>
 
-  <h1>📞 Gerador de Números para Recrutamento</h1>
-  <button onclick="gerarNumero()">Gerar Número</button>
-  <div class="number-box" id="numeroGerado">Clique no botão para gerar</div>
+  <h1>Recrutador de Números BR</h1>
+
+  <div class="contador">
+    ✅ Recrutados: <span id="recrutados">0</span> |
+    ❌ Recusados: <span id="recusados">0</span>
+  </div>
+
+  <div class="numero" id="numeroAtual">+55 00 90000-0000</div>
+
+  <button class="recrutar" onclick="recrutar()">Recrutar</button>
+  <button class="recusar" onclick="recusar()">Recusar</button>
 
   <script>
-    const dddsValidos = [
-      11, 12, 13, 14, 15, 16, 17, 18, 19,
-      21, 22, 24, 27, 28,
-      31, 32, 33, 34, 35, 37, 38,
-      41, 42, 43, 44, 45, 46,
-      47, 48, 49,
-      51, 53, 54, 55,
-      61, 62, 64, 63, 65, 66, 67,
-      68, 69, 71, 73, 74, 75, 77, 79,
-      81, 82, 83, 84, 85, 86, 87, 88, 89,
-      91, 92, 93, 94, 95, 96, 97, 98, 99
-    ];
+    let recrutados = 0;
+    let recusados = 0;
+    let numeroAtual = '';
+    const numerosGerados = new Set();
+
+    // Lista de números banidos — coloque os números sem caracteres especiais
+    const numerosBanidos = new Set([
+      "5511999999999", // Exemplo: +55 11 99999-9999
+      "5521988888888"  // Exemplo: +55 21 98888-8888
+    ]);
 
     function gerarNumero() {
-      const ddd = dddsValidos[Math.floor(Math.random() * dddsValidos.length)];
-      const parte1 = Math.floor(Math.random() * 9000) + 1000; // 1000-9999
-      const parte2 = Math.floor(Math.random() * 9000) + 1000; // 1000-9999
-      const numero = `+55 (${ddd}) 9${parte1}-${parte2}`;
-      document.getElementById('numeroGerado').innerText = numero;
+      let novoNumero;
+      let tentativas = 0;
+
+      do {
+        const ddd = Math.floor(Math.random() * (99 - 11 + 1)) + 11;
+        const parte1 = Math.floor(Math.random() * 90000) + 10000;
+        const parte2 = Math.floor(Math.random() * 9000) + 1000;
+        novoNumero = `55${ddd}9${parte1}${parte2}`;
+        tentativas++;
+        if (tentativas > 1000) {
+          alert("Acabaram os números válidos!");
+          return;
+        }
+      } while (numerosGerados.has(novoNumero) || numerosBanidos.has(novoNumero));
+
+      numeroAtual = novoNumero;
+      numerosGerados.add(novoNumero);
+
+      // Exibição formatada
+      const ddd = novoNumero.slice(2, 4);
+      const n1 = novoNumero.slice(4, 9);
+      const n2 = novoNumero.slice(9);
+      document.getElementById("numeroAtual").innerText = `+55 (${ddd}) 9${n1}-${n2}`;
     }
+
+    function recrutar() {
+      recrutados++;
+      document.getElementById("recrutados").innerText = recrutados;
+      window.open(`https://wa.me/${numeroAtual}`, '_blank');
+      gerarNumero();
+    }
+
+    function recusar() {
+      recusados++;
+      document.getElementById("recusados").innerText = recusados;
+      gerarNumero();
+    }
+
+    // Gera o primeiro número ao iniciar
+    gerarNumero();
   </script>
 
 </body>
