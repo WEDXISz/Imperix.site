@@ -12,36 +12,67 @@
       text-align: center;
       padding: 40px;
     }
+
     .contador {
       margin-bottom: 30px;
       font-size: 20px;
     }
+
     .numero {
       font-size: 28px;
       margin: 20px 0;
     }
+
+    .botoes {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
     button {
       margin: 10px;
-      padding: 10px 20px;
+      padding: 12px 24px;
       font-size: 16px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .recrutar {
+
+    .abrir {
       background-color: #25D366;
       color: #000;
     }
+
+    .abrir:hover {
+      background-color: #1ebe59;
+    }
+
+    .abrir img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .recrutar {
+      background-color: #4CAF50;
+      color: white;
+    }
+
     .recusar {
-      background-color: #ff4c4c;
-      color: #fff;
+      background-color: #f44336;
+      color: white;
     }
+
     .recrutar:hover {
-      background-color: #1da851;
+      background-color: #43a047;
     }
+
     .recusar:hover {
-      background-color: #e04343;
+      background-color: #d32f2f;
     }
   </style>
 </head>
@@ -56,8 +87,14 @@
 
   <div class="numero" id="numeroAtual">+55 00 90000-0000</div>
 
-  <button class="recrutar" onclick="recrutar()">Recrutar</button>
-  <button class="recusar" onclick="recusar()">Recusar</button>
+  <div class="botoes">
+    <button class="abrir" onclick="abrirWhatsapp()">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+      Abrir WhatsApp
+    </button>
+    <button class="recrutar" onclick="recrutar()">Recrutar</button>
+    <button class="recusar" onclick="recusar()">Recusar</button>
+  </div>
 
   <script>
     let recrutados = 0;
@@ -65,10 +102,9 @@
     let numeroAtual = '';
     const numerosGerados = new Set();
 
-    // Lista de números banidos — coloque os números sem caracteres especiais
     const numerosBanidos = new Set([
-      "5511999999999", // Exemplo: +55 11 99999-9999
-      "5521988888888"  // Exemplo: +55 21 98888-8888
+      "5511999999999",
+      "5521988888888"
     ]);
 
     function gerarNumero() {
@@ -81,6 +117,11 @@
         const parte2 = Math.floor(Math.random() * 9000) + 1000;
         novoNumero = `55${ddd}9${parte1}${parte2}`;
         tentativas++;
+
+        if (numerosBanidos.has(novoNumero)) {
+          alert(`⚠️ Número banido detectado: ${formatar(novoNumero)}\nGerando outro número...`);
+        }
+
         if (tentativas > 1000) {
           alert("Acabaram os números válidos!");
           return;
@@ -90,17 +131,23 @@
       numeroAtual = novoNumero;
       numerosGerados.add(novoNumero);
 
-      // Exibição formatada
-      const ddd = novoNumero.slice(2, 4);
-      const n1 = novoNumero.slice(4, 9);
-      const n2 = novoNumero.slice(9);
-      document.getElementById("numeroAtual").innerText = `+55 (${ddd}) 9${n1}-${n2}`;
+      document.getElementById("numeroAtual").innerText = formatar(novoNumero);
+    }
+
+    function formatar(numero) {
+      const ddd = numero.slice(2, 4);
+      const n1 = numero.slice(4, 9);
+      const n2 = numero.slice(9);
+      return `+55 (${ddd}) 9${n1}-${n2}`;
+    }
+
+    function abrirWhatsapp() {
+      window.open(`https://wa.me/${numeroAtual}`, '_blank');
     }
 
     function recrutar() {
       recrutados++;
       document.getElementById("recrutados").innerText = recrutados;
-      window.open(`https://wa.me/${numeroAtual}`, '_blank');
       gerarNumero();
     }
 
@@ -110,7 +157,6 @@
       gerarNumero();
     }
 
-    // Gera o primeiro número ao iniciar
     gerarNumero();
   </script>
 
