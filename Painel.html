@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Recrutador de Números BR</title>
+  <title>Verificador de Números WhatsApp</title>
   <style>
     body {
       background-color: #111;
@@ -12,27 +12,23 @@
       text-align: center;
       padding: 40px;
     }
-
     .contador {
       margin-bottom: 30px;
       font-size: 20px;
     }
-
     .numero {
       font-size: 28px;
       margin: 20px 0;
     }
-
     .botoes {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 15px;
       flex-wrap: wrap;
     }
-
     button {
       margin: 10px;
-      padding: 12px 24px;
+      padding: 12px 20px;
       font-size: 16px;
       border: none;
       border-radius: 8px;
@@ -42,35 +38,24 @@
       align-items: center;
       gap: 8px;
     }
-
-    .abrir {
+    .verificar {
       background-color: #25D366;
-      color: #000;
+      color: black;
     }
-
-    .abrir:hover {
-      background-color: #1ebe59;
-    }
-
-    .abrir img {
-      width: 20px;
-      height: 20px;
-    }
-
     .recrutar {
       background-color: #4CAF50;
       color: white;
     }
-
     .recusar {
       background-color: #f44336;
       color: white;
     }
-
+    .verificar:hover {
+      background-color: #1ebe59;
+    }
     .recrutar:hover {
       background-color: #43a047;
     }
-
     .recusar:hover {
       background-color: #d32f2f;
     }
@@ -78,7 +63,7 @@
 </head>
 <body>
 
-  <h1>Recrutador de Números BR</h1>
+  <h1>Verificador de Números WhatsApp</h1>
 
   <div class="contador">
     ✅ Recrutados: <span id="recrutados">0</span> |
@@ -88,10 +73,7 @@
   <div class="numero" id="numeroAtual">+55 00 90000-0000</div>
 
   <div class="botoes">
-    <button class="abrir" onclick="abrirWhatsapp()">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
-      Abrir WhatsApp
-    </button>
+    <button class="verificar" onclick="verificarWhatsapp()">Verificar número</button>
     <button class="recrutar" onclick="recrutar()">Recrutar</button>
     <button class="recusar" onclick="recusar()">Recusar</button>
   </div>
@@ -100,38 +82,13 @@
     let recrutados = 0;
     let recusados = 0;
     let numeroAtual = '';
-    const numerosGerados = new Set();
-
-    const numerosBanidos = new Set([
-      "5511999999999",
-      "5521988888888"
-    ]);
 
     function gerarNumero() {
-      let novoNumero;
-      let tentativas = 0;
-
-      do {
-        const ddd = Math.floor(Math.random() * (99 - 11 + 1)) + 11;
-        const parte1 = Math.floor(Math.random() * 90000) + 10000;
-        const parte2 = Math.floor(Math.random() * 9000) + 1000;
-        novoNumero = `55${ddd}9${parte1}${parte2}`;
-        tentativas++;
-
-        if (numerosBanidos.has(novoNumero)) {
-          alert(`⚠️ Número banido detectado: ${formatar(novoNumero)}\nGerando outro número...`);
-        }
-
-        if (tentativas > 1000) {
-          alert("Acabaram os números válidos!");
-          return;
-        }
-      } while (numerosGerados.has(novoNumero) || numerosBanidos.has(novoNumero));
-
-      numeroAtual = novoNumero;
-      numerosGerados.add(novoNumero);
-
-      document.getElementById("numeroAtual").innerText = formatar(novoNumero);
+      const ddd = Math.floor(Math.random() * (99 - 11 + 1)) + 11;
+      const parte1 = Math.floor(Math.random() * 90000) + 10000;
+      const parte2 = Math.floor(Math.random() * 9000) + 1000;
+      numeroAtual = `55${ddd}9${parte1}${parte2}`;
+      document.getElementById("numeroAtual").innerText = formatar(numeroAtual);
     }
 
     function formatar(numero) {
@@ -141,7 +98,7 @@
       return `+55 (${ddd}) 9${n1}-${n2}`;
     }
 
-    function abrirWhatsapp() {
+    function verificarWhatsapp() {
       window.open(`https://wa.me/${numeroAtual}`, '_blank');
     }
 
@@ -157,7 +114,7 @@
       gerarNumero();
     }
 
-    gerarNumero();
+    gerarNumero(); // Gera o primeiro número ao abrir a página
   </script>
 
 </body>
